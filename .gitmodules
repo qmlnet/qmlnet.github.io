@@ -1,0 +1,3 @@
+[submodule "statik-project-doc"]
+	path = statik-project-doc
+	url = https://github.com/pauldotknopf/statik-project-doc.git
