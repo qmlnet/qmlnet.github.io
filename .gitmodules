@@ -1,3 +1,6 @@
 [submodule "statik-project-doc"]
 	path = statik-project-doc
 	url = https://github.com/pauldotknopf/statik-project-doc.git
+[submodule "build/scripts/Buildary"]
+	path = build/scripts/Buildary
+	url = https://github.com/pauldotknopf/dotnet-buildary.git

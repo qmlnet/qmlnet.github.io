@@ -1,1 +1,0 @@
-Built by [Paul Knopf](https://twitter.com/pauldotknopf).
