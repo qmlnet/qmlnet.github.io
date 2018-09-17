@@ -1,0 +1,10 @@
+name: Qml.Net
+logo: ~/qmlnet.png
+google_tracking_id: UA-112478642-3
+edit_url: https://github.com/qmlnet/qmlnet{path}
+more_links:
+  - text: GitHub
+    url: https://github.com/pauldotknopf/Qml.Net
+    icon: fab fa-github
+footer: |
+  <div>Made by <a href="https://pknopf.com/">Paul Knopf</a></div>
