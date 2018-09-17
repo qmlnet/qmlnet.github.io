@@ -11,26 +11,26 @@ namespace Build
 {
     static class Program
     {
-        static Task<int> Main(string[] args)
+        static Task Main(string[] args)
         {
             var options = ParseOptions(args);
 
-            Add("clean", () =>
+            Target("clean", () =>
             {
                 CleanDirectory(ExpandPath("./output"));
             });
             
-            Add("build", DependsOn("clean"), () =>
+            Target("build", DependsOn("clean"), () =>
             {
-                RunShell("dotnet build Bulwark.sln");
+                RunShell("dotnet run --project statik-project-doc/StatikProject/StatikProject.csproj build");
             });
             
-            Add("serve", () =>
+            Target("serve", () =>
             {
-                RunShell("dotnet test test/Bulwark.Tests/");
+                RunShell("dotnet run --project statik-project-doc/StatikProject/StatikProject.csproj serve");
             });
             
-            Add("default", DependsOn("serve"));
+            Target("default", DependsOn("serve"));
 
             return Run(options);
         }
