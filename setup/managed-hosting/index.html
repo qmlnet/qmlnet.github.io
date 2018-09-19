@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="/dist/styles.css" rel="stylesheet" type="text/css"/>
+    <script src="/dist/scripts.js"></script>
+    <title>Managed hosting - Qml.Net</title>
+</head>
+<body>
+<div class="wrapper">
+    <!-- Sidebar  -->
+    <nav id="sidebar">
+        <div class="full-screen d-flex flex-column h-100">
+            <div class="header">
+                <a class="logo" href="/">
+                    <img src="/qmlnet.png" />
+                </a>
+            </div>
+            <div class="main d-flex flex-fill" style="overflow: hidden;">
+                <div class="w-100">
+                    <div id="scrolled-sidebar-content" class="h-100">
+                        <div id="sidebar-nav">
+                            <ul class="nav flex-column">
+        <li class="nav-item   level-1">
+            <a class="nav-link" href="/introduction">Introduction</a>
+        </li>
+        <li class="nav-item active  level-1">
+            <a class="nav-link" href="/setup">Setup</a>
+<ul class="nav flex-column">
+        <li class="nav-item active selected level-2">
+            <a class="nav-link" href="/setup/managed-hosting">Managed hosting</a>
+        </li>
+        <li class="nav-item   level-2">
+            <a class="nav-link" href="/setup/unmanaged-hosting">Unmanaged hosting</a>
+        </li>
+</ul>        </li>
+        <li class="nav-item   level-1">
+            <a class="nav-link" href="/features">Features</a>
+        </li>
+</ul>
+
+                        </div>
+                            <div class="more">More</div>
+                            <ul class="more-links nav flex-column">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="https://github.com/pauldotknopf/Qml.Net">
+                                                <i class="fab fa-github"></i>
+                                            GitHub
+                                        </a>
+                                    </li>
+                            </ul>
+                                                    <div class="footer">
+                                <div>Made by <a href="https://pknopf.com/">Paul Knopf</a></div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Content  -->
+    <div id="content">
+        <div class="inner">
+            <button type="button" id="sidebar-collapse" class="btn btn-link">
+                <i class="fas fa-align-left"></i>
+            </button>
+            <div id="topmenu">
+    <nav class="navbar navbar-expand bg-light">
+        <div class="container-fluid">
+                <ul class="nav navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link " href="/setup">Setup</a>
+                        </li>
+                            <li class="nav-item">
+                                <span class="navbar-text">&gt;</span>
+                            </li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled" href="/setup/managed-hosting">Managed hosting</a>
+                        </li>
+                </ul>
+            
+                <ul class="nav navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://github.com/qmlnet/qmlnet/setup/managed-hosting.md"><i class="fa fa-edit"></i> edit this page</a>
+                    </li>
+                </ul>
+        </div>
+    </nav>
+</div>
+            
+<h1 id="managed-hosting">Managed hosting</h1>
+<p>This is by far the easiest approach when developing a Qml.Net application. It utilizes a traditional .csproj file, using NuGet packages for all the native components.</p>
+<h2 id="benefits">Benefits</h2>
+<ul>
+<li>No knowledge of C++ needed.</li>
+<li>Traditional .csproj format, so all the <code>dotnet</code> commands work like any other console application.</li>
+<li>Works with any IDE that supports .NET development and debugging.</li>
+<li>Supports .NET Core, Full Framework and Mono.</li>
+</ul>
+<h2 id="drawbacks">Drawbacks</h2>
+<ul>
+<li>No embedded files. All .qml files/images must exist locally on disk. Normal Qt applications make use of <a href="http://doc.qt.io/qt-5/resources.html">Qt's Resource System</a>. This makes deployment a little bit more complicated. NOTE: This will eventually be solved via pauldotknopf/Qml.Net#15.</li>
+<li>Limited API. While Qml.Net wraps everything needed to host a QML application, it doesn't wrap <em>everything</em> that Qt provides. We will sometimes wrap additional features, but since our interop is hand-crafted/maintained, it will be limited.</li>
+</ul>
+<h2 id="setup">Setup</h2>
+<pre><code class="language-bash">dotnet add package Qml.Net
+</code></pre>
+<p><strong>Windows</strong></p>
+<pre><code class="language-bash">dotnet add package Qml.Net.WindowsBinaries
+</code></pre>
+<p><strong>OSX</strong></p>
+<pre><code class="language-bash">dotnet add package Qml.Net.OSXBinaries
+</code></pre>
+<p><strong>Linux</strong></p>
+<pre><code class="language-bash">dotnet add package Qml.Net.LinuxBinaries
+</code></pre>
+<p><strong><code>Program.cs</code></strong></p>
+<pre><code>class Program
+{
+    static int Main(string[] args)
+    {
+        using (var app = new QGuiApplication(args))
+        {
+            using (var engine = new QQmlApplicationEngine())
+            {
+                // TODO: Register your .NET types.
+                // Qml.RegisterType&lt;NetObject&gt;(&quot;test&quot;);
+
+                engine.Load(&quot;Main.qml&quot;);
+                
+                return app.Exec();
+            }
+        }
+    }
+}
+</code></pre>
+
+        </div>
+    </div>
+</div>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112478642-3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() { dataLayer.push(arguments); }
+
+        gtag('js', new Date());
+        gtag('config', 'UA-112478642-3');
+    </script>
+</body>
+</html>

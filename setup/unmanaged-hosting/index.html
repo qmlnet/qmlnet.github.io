@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="/dist/styles.css" rel="stylesheet" type="text/css"/>
+    <script src="/dist/scripts.js"></script>
+    <title>Unmanaged hosting - Qml.Net</title>
+</head>
+<body>
+<div class="wrapper">
+    <!-- Sidebar  -->
+    <nav id="sidebar">
+        <div class="full-screen d-flex flex-column h-100">
+            <div class="header">
+                <a class="logo" href="/">
+                    <img src="/qmlnet.png" />
+                </a>
+            </div>
+            <div class="main d-flex flex-fill" style="overflow: hidden;">
+                <div class="w-100">
+                    <div id="scrolled-sidebar-content" class="h-100">
+                        <div id="sidebar-nav">
+                            <ul class="nav flex-column">
+        <li class="nav-item   level-1">
+            <a class="nav-link" href="/introduction">Introduction</a>
+        </li>
+        <li class="nav-item active  level-1">
+            <a class="nav-link" href="/setup">Setup</a>
+<ul class="nav flex-column">
+        <li class="nav-item   level-2">
+            <a class="nav-link" href="/setup/managed-hosting">Managed hosting</a>
+        </li>
+        <li class="nav-item active selected level-2">
+            <a class="nav-link" href="/setup/unmanaged-hosting">Unmanaged hosting</a>
+        </li>
+</ul>        </li>
+        <li class="nav-item   level-1">
+            <a class="nav-link" href="/features">Features</a>
+        </li>
+</ul>
+
+                        </div>
+                            <div class="more">More</div>
+                            <ul class="more-links nav flex-column">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="https://github.com/pauldotknopf/Qml.Net">
+                                                <i class="fab fa-github"></i>
+                                            GitHub
+                                        </a>
+                                    </li>
+                            </ul>
+                                                    <div class="footer">
+                                <div>Made by <a href="https://pknopf.com/">Paul Knopf</a></div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Content  -->
+    <div id="content">
+        <div class="inner">
+            <button type="button" id="sidebar-collapse" class="btn btn-link">
+                <i class="fas fa-align-left"></i>
+            </button>
+            <div id="topmenu">
+    <nav class="navbar navbar-expand bg-light">
+        <div class="container-fluid">
+                <ul class="nav navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link " href="/setup">Setup</a>
+                        </li>
+                            <li class="nav-item">
+                                <span class="navbar-text">&gt;</span>
+                            </li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled" href="/setup/unmanaged-hosting">Unmanaged hosting</a>
+                        </li>
+                </ul>
+            
+                <ul class="nav navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://github.com/qmlnet/qmlnet/setup/unmanaged-hosting.md"><i class="fa fa-edit"></i> edit this page</a>
+                    </li>
+                </ul>
+        </div>
+    </nav>
+</div>
+            
+<h1 id="unmanaged-hosting">Unmanaged hosting</h1>
+<p>This approach is a little more involved to setup, but it gives you the maximum amount of control over your application.</p>
+<h2 id="benefits">Benefits</h2>
+<ul>
+<li>Support for embedding all resources (.qml files, images, etc) into the final executable.</li>
+<li>Access to the entire Qt/QtQuick/QML api, via C++. This includes custom QML controls, registering <code>Q_OBJECT</code> types with the QML engine, etc.</li>
+<li>QML/JavaScript debugging/intellisense (via QtCreator).</li>
+<li>The native component to Qml.Net is embedded inside of the final executable.</li>
+</ul>
+<h2 id="drawbacks">Drawbacks</h2>
+<ul>
+<li>Lack of support for commands like <code>dotnet run</code> and <code>dotnet publish</code>, since the executable is managed via QtCreator and it's run/deploy model.</li>
+<li>Limited IDE support for .NET debugging. Since the executable is managed by QtCreator, you're IDE must support starting arbitrary native executables as .NET applications. Visual Studio and Visual Studio for Mac work fine. Rider doesn't support attaching debuggers to native executables (yet, see <a href="https://youtrack.jetbrains.com/issue/RIDER-5378">here</a>).</li>
+<li>Requires some knowledge of C++.</li>
+<li>Only .NET Core supported.</li>
+</ul>
+<h2 id="setup">Setup</h2>
+<ol>
+<li>Create a .NET console application.</li>
+</ol>
+<pre><code class="language-c#">class Program
+{
+    public class TestObject
+    {
+        public void TestMethod()
+        {
+            Console.WriteLine(&quot;test method&quot;);
+        }
+    }
+
+    static int Main(string[] _)
+    {
+        // The &quot;_&quot; contains some private arguements to help
+        // bootstrap things. It is intended to be passed
+        // immediately into Host.Run(...).
+        
+        // Phase 5
+        // Unwrap the magic.
+        return Host.Run(_, (args, app, engine, runCallback) =&gt;
+        {
+            // &quot;args&quot; contains the any user defined arguements passed from
+            // CoreHost::run(..) in C++.
+            
+            // Phase 6
+            // Register any .NET types that will be used.
+            QQmlApplicationEngine.RegisterType&lt;TestObject&gt;(&quot;test&quot;);
+
+            // Phase 7
+            // This callback passes control back to C++ to perform
+            // any file registrations and run the event loop.
+            return runCallback();
+        });
+    }
+}
+</code></pre>
+<p>Add a reference to Qml.Net.</p>
+<pre><code class="language-bash">dotnet add package Qml.Net
+</code></pre>
+<p>You don't need to add a reference to any of the <code>Qml.Net.*Binaries</code> packages.
+2. Create a new Qt project via Qt Creator.
+3. Add Qml.Net as a submodule to your project.</p>
+<pre><code>git submodule add https://github.com/pauldotknopf/Qml.Net
+</code></pre>
+<ol start="3">
+<li>Include the native components of Qml.Net into your project, as well as the bits needed to host the .NET runtime.</li>
+</ol>
+<pre><code>include (Qml.Net/src/native/QmlNet/Hosting.pri)
+include (Qml.Net/src/native/QmlNet/QmlNet.pri)
+</code></pre>
+<ol start="5">
+<li>Start the .NET runtime in your <code>main.cpp</code>.</li>
+</ol>
+<pre><code class="language-cpp">#include &lt;QGuiApplication&gt;
+#include &lt;QQmlApplicationEngine&gt;
+#include &lt;Hosting/CoreHost.h&gt;
+
+static int runCallback(QGuiApplication* app, QQmlApplicationEngine* engine)
+{
+    // Phase 8
+    // At this point, we are in Program.Main of the .NET program.
+    // .NET should have registered all of it's types by now.
+
+    // Load some QML files.
+    // Maybe these QML files reference types registered in .NET.
+    engine-&gt;load(QUrl(QStringLiteral(&quot;qrc:/main.qml&quot;)));
+    if (engine-&gt;rootObjects().isEmpty())
+        return -1;
+
+    // Phase 9
+    // Run the event loop.
+    return app-&gt;exec();
+}
+
+int main(int argc, char *argv[])
+{
+    // Phase 1
+    // Initialize Qt/QML like you would normally.
+    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+    QGuiApplication app(argc, argv);
+    QQmlApplicationEngine engine;
+
+    // Phase 2
+    // Get the location to the managed exec
+    QString netDll = &quot;/path/to/your/net/exec/Lib.dll&quot;;
+
+    // Phase 3
+    // Find .NET Core and it's libs/paths.
+    CoreHost::RunContext runContext;
+    runContext.hostFxrContext = CoreHost::findHostFxr();
+    runContext.managedExe = netDll;
+    // NOTE: You may set entry point to the current executable if
+    // the .NET runtime is deployed side-by-side.
+    runContext.entryPoint = runContext.hostFxrContext.dotnetRoot;
+    runContext.entryPoint.append(CORECLR_DOTNET_EXE_NAME);
+
+    // Phase 4
+    // Run the .NET applciation.
+    return CoreHost::run(app,
+        engine,
+        runCallback,
+        runContext);
+}
+</code></pre>
+
+        </div>
+    </div>
+</div>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112478642-3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() { dataLayer.push(arguments); }
+
+        gtag('js', new Date());
+        gtag('config', 'UA-112478642-3');
+    </script>
+</body>
+</html>

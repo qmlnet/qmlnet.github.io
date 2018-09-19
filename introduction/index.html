@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="/dist/styles.css" rel="stylesheet" type="text/css"/>
     <script src="/dist/scripts.js"></script>
-    <title>Home - Qml.Net</title>
+    <title>Introduction - Qml.Net</title>
 </head>
 <body>
 <div class="wrapper">
@@ -22,9 +22,16 @@
                     <div id="scrolled-sidebar-content" class="h-100">
                         <div id="sidebar-nav">
                             <ul class="nav flex-column">
-        <li class="nav-item   level-1">
+        <li class="nav-item active selected level-1">
             <a class="nav-link" href="/introduction">Introduction</a>
+<ul class="nav flex-column">
+        <li class="nav-item   level-2">
+            <a class="nav-link" href="/introduction/requirements">Requirements</a>
         </li>
+        <li class="nav-item   level-2">
+            <a class="nav-link" href="/introduction/other-frameworks">Other frameworks</a>
+        </li>
+</ul>        </li>
         <li class="nav-item   level-1">
             <a class="nav-link" href="/setup">Setup</a>
         </li>
@@ -61,17 +68,71 @@
             <div id="topmenu">
     <nav class="navbar navbar-expand bg-light">
         <div class="container-fluid">
+                <ul class="nav navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link disabled" href="/introduction">Introduction</a>
+                        </li>
+                </ul>
             
                 <ul class="nav navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="https://github.com/qmlnet/qmlnet/index.md"><i class="fa fa-edit"></i> edit this page</a>
+                        <a class="nav-link" href="https://github.com/qmlnet/qmlnet/introduction/index.md"><i class="fa fa-edit"></i> edit this page</a>
                     </li>
                 </ul>
         </div>
     </nav>
 </div>
             
-<p>Build cross-platform desktop applications in .NET, using Qml.Net.</p>
+<h1 id="introduction">Introduction</h1>
+<p>Qml.Net is a thin layer glueing together two well-established technologies, QtQuick/QML and .NET.</p>
+<h2 id="brief-example">Brief example</h2>
+<p><strong><code>Program.cs</code></strong></p>
+<pre><code class="language-csharp">class Program
+{
+    public class NetObject
+    {
+        public void Method()
+        {
+            // Called from QML.
+        }
+    }
+
+    static int Main(string[] args)
+    {
+        using (var app = new QGuiApplication(args))
+        {
+            using (var engine = new QQmlApplicationEngine())
+            {
+                Qml.RegisterType&lt;NetObject&gt;(&quot;test&quot;);
+
+                engine.Load(&quot;Main.qml&quot;);
+                
+                return app.Exec();
+            }
+        }
+    }
+}
+</code></pre>
+<p><strong><code>Main.qml</code></strong></p>
+<pre><code class="language-qml">import QtQuick 2.7
+import QtQuick.Controls 2.0
+import test 1.1
+
+ApplicationWindow {
+    visible: true
+    width: 640
+    height: 480
+    title: qsTr(&quot;Hello World&quot;)
+
+    NetObject {
+      id: test
+      Component.onCompleted: function() {
+          test.method()
+      }
+    }
+}
+</code></pre>
+<p>See <a href="/features">Features</a> for a complete list of interactions that can be done between .NET and QML.</p>
 
         </div>
     </div>
