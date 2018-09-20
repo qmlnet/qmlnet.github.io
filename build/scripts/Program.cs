@@ -90,6 +90,7 @@ namespace Build
                     RunShell("git config user.name \"Travis CI\"");
                     RunShell($"git config user.email \"{commitAuthorEmail}\"");
                     RunShell($"git commit -m \"Deploy to GitHub Pages: {sha}\"");
+                    RunShell($"git push origin master");
                 }
             });
             
