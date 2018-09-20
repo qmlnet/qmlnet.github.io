@@ -3,7 +3,7 @@ dotnet: 2.1.401
 mono: none
 before_install:
   - openssl aes-256-cbc -K $encrypted_a1e499630875_key -iv $encrypted_a1e499630875_iv -in deploy_key.enc -out deploy_key -d
-  - chmod 600 $deploy_key
+  - chmod 600 deploy_key
   - eval `ssh-agent -s`
   - ssh-add deploy_key
   - export COMMIT_AUTHOR_EMAIL="$(git log -1 $TRAVIS_COMMIT --pretty="%cE")"
