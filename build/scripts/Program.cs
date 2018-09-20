@@ -16,7 +16,6 @@ namespace Build
         static Task Main(string[] args)
         {
             var options = ParseOptions(args);
-            var deployKey = ExpandPath("./deploy.key");
             var tmpRepo = ExpandPath("./tmp-repo");
             var output = ExpandPath("./output");
             var commitAuthorEmail = Environment.GetEnvironmentVariable("COMMIT_AUTHOR_EMAIL");
@@ -66,16 +65,6 @@ namespace Build
                     }
                 }
 
-                if (FileExists(ExpandPath(deployKey)))
-                {
-                    Info($"Adding {deployKey} to ssh-agent...");
-                    RunShell($"chmod 600 {ExpandPath(deployKey)} && eval `ssh-agent -s` && ssh-add ${ExpandPath(deployKey)}");
-                }
-                else
-                {
-                    Info($"Key {deployKey} doesn't exist, skipping ssh-agent...");
-                }
-                
                 if (string.IsNullOrEmpty(commitAuthorEmail))
                 {
                     Failure("No COMMIT_AUTHOR_EMAIL, skipping deploy...");
