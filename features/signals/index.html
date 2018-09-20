@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="/dist/styles.css" rel="stylesheet" type="text/css"/>
     <script src="/dist/scripts.js"></script>
-    <title>Properties - Qml.Net</title>
+    <title>Signals - Qml.Net</title>
 </head>
 <body>
 <div class="wrapper">
@@ -37,10 +37,10 @@
         <li class="nav-item   level-2">
             <a class="nav-link" href="/features/methods">Methods</a>
         </li>
-        <li class="nav-item active selected level-2">
+        <li class="nav-item   level-2">
             <a class="nav-link" href="/features/properties">Properties</a>
         </li>
-        <li class="nav-item   level-2">
+        <li class="nav-item active selected level-2">
             <a class="nav-link" href="/features/signals">Signals</a>
         </li>
 </ul>        </li>
@@ -82,40 +82,20 @@
                                 <span class="navbar-text">&gt;</span>
                             </li>
                         <li class="nav-item">
-                            <a class="nav-link disabled" href="/features/properties">Properties</a>
+                            <a class="nav-link disabled" href="/features/signals">Signals</a>
                         </li>
                 </ul>
             
                 <ul class="nav navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="https://github.com/qmlnet/qmlnet/features/properties.md"><i class="fa fa-edit"></i> edit this page</a>
+                        <a class="nav-link" href="https://github.com/qmlnet/qmlnet/features/signals.md"><i class="fa fa-edit"></i> edit this page</a>
                     </li>
                 </ul>
         </div>
     </nav>
 </div>
             
-<h1 id="invoking-properties-from-qml">Invoking properties from QML.</h1>
-<pre><code class="language-csharp">public class NetObject
-{
-    public NetObject()
-    {
-        Prop = &quot;hello!&quot;;
-    }
-
-    public string Prop { get; set; }
-}
-</code></pre>
-<pre><code class="language-qml">import YourApp 2.1
-
-YourNetObject {
-    id: o
-    Component.onCompleted: {
-        // Outputs &quot;hello!&quot;
-        console.log(o.Prop)
-    }
-}
-</code></pre>
+<p>TODO</p>
 
         </div>
     </div>
