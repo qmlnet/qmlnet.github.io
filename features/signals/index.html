@@ -95,7 +95,46 @@
     </nav>
 </div>
             
-<p>TODO</p>
+<h1 id="signals">Signals</h1>
+<p>Your .NET objects can define signals.</p>
+<pre><code class="language-csharp">[Signal(&quot;signalName&quot;)]
+public class NetObject
+{
+}
+</code></pre>
+<p>Your signals can also declare parameters.</p>
+<pre><code class="language-csharp">[Signal(&quot;signalName&quot;, NetVariantType.String, NetVariantType.Int)]
+public class NetObject
+{
+}
+</code></pre>
+<p>You can raise signals from .NET.</p>
+<pre><code class="language-csharp">public void YourMethod()
+{
+    netObject.ActivateSignal(&quot;signalName&quot;, &quot;param&quot;, 3);
+}
+</code></pre>
+<p>You can attach signal handlers from both .NET and QML.</p>
+<pre><code class="language-csharp">public void YourMethod()
+{
+    app.AttachToSignal(&quot;signalName&quot;, new Action&lt;string, int&gt;((param1, param2) =&gt;
+    {
+        Console.WriteLine(&quot;Signal raised!&quot;);
+    }));
+}
+</code></pre>
+<pre><code class="language-qml">import YourApp 2.1
+
+YourNetObject {
+    onSignalName: function(param1, param2) {
+        console.log(&quot;Signal raised!&quot;)
+    }
+}
+</code></pre>
+<div class="minfo"><p>Signal handlers attached from .NET persist throughout the life-time of the .NET object. As the object is passed back and forth between QML and .NET, the handlers will remain.</p>
+</div>
+<div class="minfo"><p>Signal handlers attached from QML persist throughout the life-time of the javascript object that <em>represents</em> the .NET object. Consider the following. When the javascript object that represents the .NET object is collected, the QML handlers are removed. The .NET object may be passed back to QML, but it will no longer have any QML handlers.</p>
+</div>
 
         </div>
     </div>
