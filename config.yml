@@ -1,7 +1,7 @@
 name: Qml.Net
 logo: ~/qmlnet.png
 google_tracking_id: UA-112478642-3
-edit_url: https://github.com/qmlnet/qmlnet{path}
+edit_url: https://github.com/qmlnet/qmlnet.github.io/blob/staging{path}
 more_links:
   - text: GitHub
     url: https://github.com/pauldotknopf/Qml.Net
