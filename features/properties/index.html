@@ -96,26 +96,24 @@
 </div>
             
 <h1 id="invoking-properties-from-qml">Invoking properties from QML.</h1>
-<pre><code class="language-csharp">public class NetObject
+<pre><code class="language-csharp"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">NetObject</span>
 {
-    public NetObject()
-    {
-        Prop = &quot;hello!&quot;;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">NetObject</span>(<span class="hljs-params"></span>)
+    </span>{
+        Prop = <span class="hljs-string">"hello!"</span>;
     }
 
-    public string Prop { get; set; }
-}
-</code></pre>
-<pre><code class="language-qml">import YourApp 2.1
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> Prop { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
+}</code></pre>
+<pre><code class="language-qml"><span class="hljs-keyword">import</span> YourApp <span class="hljs-number">2.1</span>
 
-YourNetObject {
-    id: o
-    Component.onCompleted: {
-        // Outputs &quot;hello!&quot;
-        console.log(o.Prop)
+<span class="hljs-title">YourNetObject</span> {
+    <span class="hljs-attribute">id:</span><span class="hljs-string"> o</span>
+    <span class="hljs-attribute">Component.onCompleted</span>: {
+        <span class="hljs-comment">// Outputs "hello!"</span>
+        <span class="hljs-built_in">console</span>.log(o.Prop)
     }
-}
-</code></pre>
+}</code></pre>
 
         </div>
     </div>

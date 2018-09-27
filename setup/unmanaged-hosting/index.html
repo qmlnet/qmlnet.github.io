@@ -109,44 +109,42 @@
 <ol>
 <li>Create a .NET console application.</li>
 </ol>
-<pre><code class="language-c#">class Program
+<pre><code class="language-csharp"><span class="hljs-keyword">class</span> <span class="hljs-title">Program</span>
 {
-    public class TestObject
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">TestObject</span>
     {
-        public void TestMethod()
-        {
-            Console.WriteLine(&quot;test method&quot;);
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">TestMethod</span>(<span class="hljs-params"></span>)
+        </span>{
+            Console.WriteLine(<span class="hljs-string">"test method"</span>);
         }
     }
 
-    static int Main(string[] _)
-    {
-        // The &quot;_&quot; contains some private arguements to help
-        // bootstrap things. It is intended to be passed
-        // immediately into Host.Run(...).
+    <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">Main</span>(<span class="hljs-params"><span class="hljs-keyword">string</span>[] _</span>)
+    </span>{
+        <span class="hljs-comment">// The "_" contains some private arguements to help</span>
+        <span class="hljs-comment">// bootstrap things. It is intended to be passed</span>
+        <span class="hljs-comment">// immediately into Host.Run(...).</span>
         
-        // Phase 5
-        // Unwrap the magic.
-        return Host.Run(_, (args, app, engine, runCallback) =&gt;
+        <span class="hljs-comment">// Phase 5</span>
+        <span class="hljs-comment">// Unwrap the magic.</span>
+        <span class="hljs-keyword">return</span> Host.Run(_, (args, app, engine, runCallback) =&gt;
         {
-            // &quot;args&quot; contains the any user defined arguements passed from
-            // CoreHost::run(..) in C++.
+            <span class="hljs-comment">// "args" contains the any user defined arguements passed from</span>
+            <span class="hljs-comment">// CoreHost::run(..) in C++.</span>
             
-            // Phase 6
-            // Register any .NET types that will be used.
-            QQmlApplicationEngine.RegisterType&lt;TestObject&gt;(&quot;test&quot;);
+            <span class="hljs-comment">// Phase 6</span>
+            <span class="hljs-comment">// Register any .NET types that will be used.</span>
+            QQmlApplicationEngine.RegisterType&lt;TestObject&gt;(<span class="hljs-string">"test"</span>);
 
-            // Phase 7
-            // This callback passes control back to C++ to perform
-            // any file registrations and run the event loop.
-            return runCallback();
+            <span class="hljs-comment">// Phase 7</span>
+            <span class="hljs-comment">// This callback passes control back to C++ to perform</span>
+            <span class="hljs-comment">// any file registrations and run the event loop.</span>
+            <span class="hljs-keyword">return</span> runCallback();
         });
     }
-}
-</code></pre>
+}</code></pre>
 <p>Add a reference to Qml.Net.</p>
-<pre><code class="language-bash">dotnet add package Qml.Net
-</code></pre>
+<pre><code class="language-bash">dotnet add package Qml.Net</code></pre>
 <p>You don't need to add a reference to any of the <code>Qml.Net.*Binaries</code> packages.
 2. Create a new Qt project via Qt Creator.
 3. Add Qml.Net as a submodule to your project.</p>
@@ -161,57 +159,56 @@ include (Qml.Net/src/native/QmlNet/QmlNet.pri)
 <ol start="5">
 <li>Start the .NET runtime in your <code>main.cpp</code>.</li>
 </ol>
-<pre><code class="language-cpp">#include &lt;QGuiApplication&gt;
-#include &lt;QQmlApplicationEngine&gt;
-#include &lt;Hosting/CoreHost.h&gt;
+<pre><code class="language-cpp"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;QGuiApplication&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;QQmlApplicationEngine&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;Hosting/CoreHost.h&gt;</span></span>
 
-static int runCallback(QGuiApplication* app, QQmlApplicationEngine* engine)
-{
-    // Phase 8
-    // At this point, we are in Program.Main of the .NET program.
-    // .NET should have registered all of it's types by now.
+<span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">runCallback</span><span class="hljs-params">(QGuiApplication* app, QQmlApplicationEngine* engine)</span>
+</span>{
+    <span class="hljs-comment">// Phase 8</span>
+    <span class="hljs-comment">// At this point, we are in Program.Main of the .NET program.</span>
+    <span class="hljs-comment">// .NET should have registered all of it's types by now.</span>
 
-    // Load some QML files.
-    // Maybe these QML files reference types registered in .NET.
-    engine-&gt;load(QUrl(QStringLiteral(&quot;qrc:/main.qml&quot;)));
-    if (engine-&gt;rootObjects().isEmpty())
-        return -1;
+    <span class="hljs-comment">// Load some QML files.</span>
+    <span class="hljs-comment">// Maybe these QML files reference types registered in .NET.</span>
+    engine-&gt;load(QUrl(QStringLiteral(<span class="hljs-string">"qrc:/main.qml"</span>)));
+    <span class="hljs-keyword">if</span> (engine-&gt;rootObjects().isEmpty())
+        <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;
 
-    // Phase 9
-    // Run the event loop.
-    return app-&gt;exec();
+    <span class="hljs-comment">// Phase 9</span>
+    <span class="hljs-comment">// Run the event loop.</span>
+    <span class="hljs-keyword">return</span> app-&gt;exec();
 }
 
-int main(int argc, char *argv[])
-{
-    // Phase 1
-    // Initialize Qt/QML like you would normally.
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">int</span> argc, <span class="hljs-keyword">char</span> *argv[])</span>
+</span>{
+    <span class="hljs-comment">// Phase 1</span>
+    <span class="hljs-comment">// Initialize Qt/QML like you would normally.</span>
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-    QGuiApplication app(argc, argv);
+    <span class="hljs-function">QGuiApplication <span class="hljs-title">app</span><span class="hljs-params">(argc, argv)</span></span>;
     QQmlApplicationEngine engine;
 
-    // Phase 2
-    // Get the location to the managed exec
-    QString netDll = &quot;/path/to/your/net/exec/Lib.dll&quot;;
+    <span class="hljs-comment">// Phase 2</span>
+    <span class="hljs-comment">// Get the location to the managed exec</span>
+    QString netDll = <span class="hljs-string">"/path/to/your/net/exec/Lib.dll"</span>;
 
-    // Phase 3
-    // Find .NET Core and it's libs/paths.
+    <span class="hljs-comment">// Phase 3</span>
+    <span class="hljs-comment">// Find .NET Core and it's libs/paths.</span>
     CoreHost::RunContext runContext;
     runContext.hostFxrContext = CoreHost::findHostFxr();
     runContext.managedExe = netDll;
-    // NOTE: You may set entry point to the current executable if
-    // the .NET runtime is deployed side-by-side.
+    <span class="hljs-comment">// <span class="hljs-doctag">NOTE:</span> You may set entry point to the current executable if</span>
+    <span class="hljs-comment">// the .NET runtime is deployed side-by-side.</span>
     runContext.entryPoint = runContext.hostFxrContext.dotnetRoot;
     runContext.entryPoint.append(CORECLR_DOTNET_EXE_NAME);
 
-    // Phase 4
-    // Run the .NET applciation.
-    return CoreHost::run(app,
+    <span class="hljs-comment">// Phase 4</span>
+    <span class="hljs-comment">// Run the .NET applciation.</span>
+    <span class="hljs-keyword">return</span> CoreHost::run(app,
         engine,
         runCallback,
         runContext);
-}
-</code></pre>
+}</code></pre>
 
         </div>
     </div>

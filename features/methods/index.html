@@ -96,24 +96,22 @@
 </div>
             
 <h1 id="invoking.net-methods-from-qml">Invoking .NET methods from QML</h1>
-<pre><code class="language-csharp">public class NetObject
+<pre><code class="language-csharp"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">NetObject</span>
 {
-    public int Add(int value1, int value2)
-    {
-        return value1 + value2;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">Add</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> value1, <span class="hljs-keyword">int</span> value2</span>)
+    </span>{
+        <span class="hljs-keyword">return</span> value1 + value2;
     }
-}
-</code></pre>
-<pre><code class="language-qml">import YourApp 2.1
+}</code></pre>
+<pre><code class="language-qml"><span class="hljs-keyword">import</span> YourApp <span class="hljs-number">2.1</span>
 
-YourNetObject {
-    id: o
-    Component.onCompleted: {
-        // Outputs &quot;2&quot;
-        console.log(o.add(1, 1))
+<span class="hljs-title">YourNetObject</span> {
+    <span class="hljs-attribute">id:</span><span class="hljs-string"> o</span>
+    <span class="hljs-attribute">Component.onCompleted</span>: {
+        <span class="hljs-comment">// Outputs "2"</span>
+        <span class="hljs-built_in">console</span>.log(o.add(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>))
     }
-}
-</code></pre>
+}</code></pre>
 
         </div>
     </div>

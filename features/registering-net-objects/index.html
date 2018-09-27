@@ -97,14 +97,12 @@
             
 <h1 id="registering.net-objects">Registering .NET objects.</h1>
 <p>To instantiate a .NET type and to begin using it in QML, it must be registered.</p>
-<pre><code class="language-csharp">Qml.RegisterType&lt;YourNetObject&gt;(&quot;YourApp&quot;, 2, 1);
-</code></pre>
+<pre><code class="language-csharp">Qml.RegisterType&lt;YourNetObject&gt;(<span class="hljs-string">"YourApp"</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>);</code></pre>
 <p>Then you can import and use your type in QML.</p>
-<pre><code class="language-qml">import YourApp 2.1
+<pre><code class="language-qml"><span class="hljs-keyword">import</span> YourApp <span class="hljs-number">2.1</span>
 
-YourNetObject {
-}
-</code></pre>
+<span class="hljs-title">YourNetObject</span> {
+}</code></pre>
 
         </div>
     </div>
