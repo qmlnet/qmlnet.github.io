@@ -24,7 +24,7 @@ This approach is a little more involved to setup, but it gives you the maximum a
 ## Setup
 
 1. Create a .NET console application.
-```c#
+```csharp
 class Program
 {
     public class TestObject
