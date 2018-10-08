@@ -16,7 +16,7 @@ This is by far the easiest approach when developing a Qml.Net application. It ut
 
 ## Drawbacks
 
-* No embedded files. All .qml files/images must exist locally on disk. Normal Qt applications make use of [Qt's Resource System](http://doc.qt.io/qt-5/resources.html). This makes deployment a little bit more complicated. NOTE: This will eventually be solved via pauldotknopf/Qml.Net#15.
+* No embedded files. All .qml files/images must exist locally on disk. Normal Qt applications make use of [Qt's Resource System](http://doc.qt.io/qt-5/resources.html). This makes deployment a little bit more complicated. NOTE: This will eventually be solved via [qmlnet - issue 15](https://github.com/qmlnet/qmlnet/issues/15).
 * Limited API. While Qml.Net wraps everything needed to host a QML application, it doesn't wrap *everything* that Qt provides. We will sometimes wrap additional features, but since our interop is hand-crafted/maintained, it will be limited.
 
 ## Setup
