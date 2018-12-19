@@ -26,7 +26,7 @@ class Program
         {
             using (var engine = new QQmlApplicationEngine())
             {
-                Qml.RegisterType<NetObject>("test");
+                Qml.RegisterType<NetObject>("test", 1, 1);
 
                 engine.Load("Main.qml");
                 
