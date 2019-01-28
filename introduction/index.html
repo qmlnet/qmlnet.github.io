@@ -103,7 +103,7 @@
         {
             <span class="hljs-keyword">using</span> (<span class="hljs-keyword">var</span> engine = <span class="hljs-keyword">new</span> QQmlApplicationEngine())
             {
-                Qml.RegisterType&lt;NetObject&gt;(<span class="hljs-string">"test"</span>);
+                Qml.RegisterType&lt;NetObject&gt;(<span class="hljs-string">"test"</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>);
 
                 engine.Load(<span class="hljs-string">"Main.qml"</span>);
                 
