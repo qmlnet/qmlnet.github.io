@@ -6,7 +6,7 @@ order: 1
 # Invoking .NET methods from QML
 
 ```csharp
-public class NetObject
+public class YourNetObject
 {
     public int Add(int value1, int value2)
     {
