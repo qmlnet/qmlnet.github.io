@@ -10,6 +10,11 @@ Qml.Net is a thin layer glueing together two well-established technologies, QtQu
 
 **```Program.cs```**
 ```csharp
+using System;
+using System.IO;
+using Qml.Net;
+using Qml.Net.Runtimes;
+
 class Program
 {
     public class NetObject
@@ -22,11 +27,13 @@ class Program
 
     static int Main(string[] args)
     {
+        RuntimeManager.DiscoverOrDownloadSuitableQtRuntime();
+        
         using (var app = new QGuiApplication(args))
         {
             using (var engine = new QQmlApplicationEngine())
             {
-                Qml.RegisterType<NetObject>("test", 1, 1);
+                Qml.Net.Qml.RegisterType<NetObject>("test", 1, 1);
 
                 engine.Load("Main.qml");
                 
