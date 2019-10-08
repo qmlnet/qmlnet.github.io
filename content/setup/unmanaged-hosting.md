@@ -17,7 +17,7 @@ This approach is a little more involved to setup, but it gives you the maximum a
 ## Drawbacks
 
 * Lack of support for commands like ```dotnet run``` and ```dotnet publish```, since the executable is managed via QtCreator and it's run/deploy model.
-* Limited IDE support for .NET debugging. Since the executable is managed by QtCreator, you're IDE must support starting arbitrary native executables as .NET applications. Visual Studio and Visual Studio for Mac work fine. Rider doesn't support attaching debuggers to native executables (yet, see [here](https://youtrack.jetbrains.com/issue/RIDER-5378)).
+* Limited IDE support for .NET debugging. Since the executable is managed by QtCreator, your IDE must support starting arbitrary native executables as .NET applications. Visual Studio and Visual Studio for Mac work fine. Rider doesn't support attaching debuggers to native executables (yet, see [here](https://youtrack.jetbrains.com/issue/RIDER-5378)).
 * Requires some knowledge of C++.
 * Only .NET Core supported.
 
