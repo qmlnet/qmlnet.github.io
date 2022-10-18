@@ -10,4 +10,4 @@ order: 1
   * .NET Full Framework
   * Mono
 
-Most desktop platforms are supported (Linux/OSX/Windows), dependending upon the .NET runtime you choose.
+Most desktop platforms are supported (Linux/OSX/Windows), depending upon the .NET runtime you choose.
